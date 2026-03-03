@@ -1,0 +1,131 @@
+<div id="pg-g2" class="pg">
+
+  <section class="gift-top wkbk2-top">
+    <div class="gift-top-inner">
+      <span class="tag">Workbook 2 · Complete</span>
+      <h1>You didn't<br>put it down.</h1>
+      <p>Most people start something like this and quietly walk away. You showed up for 21 days. You said the nos. That changed something. Your gift is waiting.</p>
+      <button class="btn btn-gold" onclick="document.getElementById('gf2').scrollIntoView({behavior:'smooth'})">Claim Your Gift →</button>
+    </div>
+  </section>
+
+  <section class="gift-body">
+    <div class="gift-body-inner">
+
+```
+  <div class="tag">What You're Getting</div>
+  <div class="divider"></div>
+  <div class="gift-items">
+    <div class="gift-item"><div class="gift-item-icon">📋</div><div><h4>The Scripts You Built — Reference Card</h4><p>All 21 scripts organized by week. Each entry references the silence after that specific day — it reads differently now than it would have on Day 1.</p></div></div>
+    <div class="gift-item"><div class="gift-item-icon">🛡</div><div><h4>Emergency Anchors</h4><p>The three scripts that work in any situation. Plus the breath ritual by week — because you earned the Week 3 version.</p></div></div>
+    <div class="gift-item"><div class="gift-item-icon">🔑</div><div><h4>The Door to Workbook 3</h4><p>A reference to a specific page in your workbook — the Integration Space, the three unsolved situations. That's where Workbook 3 begins.</p></div></div>
+  </div>
+
+  <div class="gift-form-wrap" id="gf2">
+    <h3>21 nos.<br>Center claimed.</h3>
+    <p>Enter your email and your gift arrives in minutes.</p>
+    <form class="form-row" onsubmit="doGift(event)">
+      <input type="text" name="FNAME" placeholder="Your first name" required class="inv">
+      <input type="email" name="EMAIL" placeholder="Your email address" required class="inv">
+      <button type="submit" class="btn btn-gold">Send My Gift Now</button>
+      <span class="small-inv">You'll hear first when Workbook 3 is ready. Unsubscribe any time.</span>
+    </form>
+    <div id="ok-g2" class="ok">✦ Your gift is on its way. Check your inbox.</div>
+  </div>
+
+</div>
+```
+
+  </section>
+
+</div><!-- end g2 -->
+
+<!-- FOOTER -->
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-logo" onclick="go('home')">Known<span>Press</span></div>
+    <div class="footer-nav">
+      <button onclick="go('home')">Home</button>
+      <button onclick="go('books')">Books</button>
+      <button onclick="go('g1')">Wkbk 1 Gift</button>
+      <button onclick="go('g2')">Wkbk 2 Gift</button>
+    </div>
+  </div>
+  <div class="footer-copy">© 2025 KnownPress · R.D. Tenil · Finding Yourself Within · Amazon links are affiliate links</div>
+</footer>
+
+<script>
+const ML = 'https://assets.mailerlite.com/jsonp/2114005/forms/179425448254506885/subscribe';
+const PDF1 = 'https://assets.zyrosite.com/P7IoOiTp6OMz7nAe/knownpress-wkbk1-gift-final-c2yWv8aPuyDC6yMt.pdf';
+const PDF2 = 'https://assets.zyrosite.com/P7IoOiTp6OMz7nAe/knownpress-gift-final-hiPgL5sunp35OuwU.pdf';
+
+const TIPS = [
+  "Before you respond to the next request, take one breath. Notice if your body is bracing or at ease. That's your answer.",
+  "Today: notice when your shoulders rise. That's the moment before the automatic yes.",
+  "Your gut dropped before your mind caught up. Learn to trust the drop.",
+  "The pause between their request and your answer is not awkward. It's yours.",
+  "Try saying 'let me think about that' once today — even when you already know.",
+  "Notice the difference between a yes that opens something and a yes that closes you down.",
+  "Tightness in the chest is a sentence your body is trying to finish. Give it time.",
+  "You don't have to explain a no. The explanation is not the boundary.",
+  "Before you say yes, ask — is this mine to carry?",
+  "The body braces before the voice gives in. Learn to hear the brace.",
+  "Ease in the shoulders means the body agrees. Tension means it doesn't. Both are data.",
+  "One small no today. It doesn't have to be big to be real.",
+  "Notice what your hands do when someone asks something of you. Both reaching and pulling back are answers.",
+  "The slow exhale is the body's simplest signal of safety. Use it before you speak.",
+  "You've been practicing. Even when it doesn't feel like it.",
+];
+document.getElementById('tip-txt').textContent = TIPS[new Date().getDate() % TIPS.length];
+
+function go(id) {
+  document.querySelectorAll('.pg').forEach(p => p.classList.remove('on'));
+  document.querySelectorAll('.nav-btns button').forEach(b => b.classList.remove('on'));
+  document.getElementById('pg-' + id).classList.add('on');
+  const nb = document.getElementById('nb-' + id);
+  if (nb) nb.classList.add('on');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+  window.location.hash = id;
+}
+
+(function () {
+  const h = window.location.hash.replace('#', '');
+  if (['home','books','g1','g2'].includes(h)) go(h);
+})();
+
+function sub(e, okId) {
+  e.preventDefault();
+  const f = e.target, b = f.querySelector('button');
+  b.textContent = 'Sending…'; b.disabled = true;
+  fetch(ML, { method: 'POST', body: new FormData(f), mode: 'no-cors' })
+    .finally(() => { f.style.display = 'none'; document.getElementById(okId).style.display = 'block'; });
+}
+
+function doGrad(e) {
+  e.preventDefault();
+  const f = e.target, b = f.querySelector('button');
+  b.textContent = 'Sending…'; b.disabled = true;
+  fetch(ML, { method: 'POST', body: new FormData(f), mode: 'no-cors' })
+    .finally(() => {
+      f.style.display = 'none';
+      document.getElementById('ok-g1').style.display = 'block';
+      setTimeout(() => window.location.href = PDF1, 1500);
+    });
+}
+
+function doGift(e) {
+  e.preventDefault();
+  const f = e.target, b = f.querySelector('button');
+  b.textContent = 'Sending…'; b.disabled = true;
+  fetch(ML, { method: 'POST', body: new FormData(f), mode: 'no-cors' })
+    .finally(() => {
+      f.style.display = 'none';
+      document.getElementById('ok-g2').style.display = 'block';
+      setTimeout(() => window.location.href = PDF2, 1500);
+    });
+}
+</script>
+
+</body>
+</html>
