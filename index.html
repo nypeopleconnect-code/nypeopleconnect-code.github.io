@@ -1,1 +1,1006 @@
+<!DOCTYPE html>
 
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>KnownPress — Finding Yourself Within</title>
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;1,400&family=Jost:wght@300;400;600&display=swap" rel="stylesheet">
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+–green:   #2d6a35;
+–green-d: #1e4a24;
+–green-l: #3a8044;
+–gold:    #c8a030;
+–cream:   #faf7f0;
+–warm:    #f3ede0;
+–text:    #1e2a1e;
+–muted:   #5a6050;
+–border:  #ddd5c0;
+–lora:    ‘Lora’, Georgia, serif;
+–jost:    ‘Jost’, sans-serif;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+font-family: var(–jost);
+background: var(–cream);
+color: var(–text);
+overflow-x: hidden;
+font-size: 17px;
+}
+
+/* ── NAV ── */
+nav {
+position: fixed;
+top: 0; left: 0; right: 0;
+z-index: 99;
+background: var(–green-d);
+display: flex;
+align-items: center;
+justify-content: space-between;
+padding: 0 20px;
+height: 60px;
+border-bottom: 2px solid var(–gold);
+}
+
+.logo {
+font-family: var(–lora);
+font-size: 20px;
+color: #fff;
+cursor: pointer;
+flex-shrink: 0;
+}
+.logo span { color: #f0c84a; }
+
+.nav-btns {
+display: flex;
+gap: 3px;
+flex-wrap: nowrap;
+}
+.nav-btns button {
+background: none;
+border: none;
+font-family: var(–jost);
+font-size: 12px;
+font-weight: 600;
+letter-spacing: .06em;
+text-transform: uppercase;
+color: rgba(255,255,255,.75);
+padding: 8px 10px;
+cursor: pointer;
+border-radius: 4px;
+white-space: nowrap;
+}
+.nav-btns button:hover { color: #fff; background: rgba(255,255,255,.1); }
+.nav-btns button.on { color: #fff; background: rgba(255,255,255,.15); }
+.nav-btns .cta {
+background: var(–gold) !important;
+color: #1e2a1e !important;
+font-weight: 700;
+}
+.nav-btns .cta:hover { background: #dbb840 !important; }
+
+/* ── PAGES ── */
+.pg { display: none; }
+.pg.on { display: block; }
+
+/* ── SHARED ── */
+.wrap { max-width: 860px; margin: 0 auto; padding: 0 24px; }
+
+.tag {
+font-family: var(–jost);
+font-size: 12px;
+font-weight: 600;
+letter-spacing: .15em;
+text-transform: uppercase;
+color: var(–gold);
+}
+
+h1 { font-family: var(–lora); line-height: 1.15; }
+h2 { font-family: var(–lora); line-height: 1.2; }
+h3 { font-family: var(–lora); line-height: 1.2; }
+
+.divider {
+width: 44px; height: 2px;
+background: var(–gold);
+margin: 14px 0 22px;
+}
+
+/* Buttons */
+.btn {
+display: inline-block;
+font-family: var(–jost);
+font-size: 14px;
+font-weight: 600;
+letter-spacing: .08em;
+text-transform: uppercase;
+padding: 16px 32px;
+border: none;
+border-radius: 4px;
+cursor: pointer;
+text-decoration: none;
+transition: all .2s;
+}
+.btn-gold { background: var(–gold); color: #fff; }
+.btn-gold:hover { background: #dbb840; transform: translateY(-2px); box-shadow: 0 4px 16px rgba(200,160,48,.3); }
+.btn-green { background: var(–green); color: #fff; }
+.btn-green:hover { background: var(–green-l); transform: translateY(-2px); }
+.btn-amazon { background: #ff9900; color: #111; }
+.btn-amazon:hover { background: #e68a00; transform: translateY(-2px); }
+.btn-ghost { background: transparent; color: var(–green); border: 2px solid var(–border); }
+.btn-ghost:hover { border-color: var(–gold); color: var(–gold); }
+
+/* Forms */
+.form-col { display: flex; flex-direction: column; gap: 12px; max-width: 420px; }
+.form-col input {
+font-family: var(–jost);
+font-size: 16px;
+padding: 15px 18px;
+border: 2px solid var(–border);
+border-radius: 4px;
+background: #fff;
+color: var(–text);
+outline: none;
+}
+.form-col input:focus { border-color: var(–gold); }
+
+.form-col input.inv {
+background: rgba(255,255,255,.12);
+border-color: rgba(255,255,255,.3);
+color: #fff;
+font-size: 16px;
+}
+.form-col input.inv::placeholder { color: rgba(255,255,255,.5); }
+.form-col input.inv:focus { border-color: #f0c84a; }
+
+.fine { font-size: 13px; color: var(–muted); line-height: 1.5; }
+.fine-inv { font-size: 13px; color: rgba(255,255,255,.45); line-height: 1.5; }
+
+.ok {
+display: none;
+padding: 18px 22px;
+background: rgba(200,160,48,.1);
+border: 1px solid rgba(200,160,48,.35);
+border-radius: 4px;
+font-family: var(–lora);
+font-style: italic;
+font-size: 17px;
+color: var(–gold);
+}
+
+/* ══════════════════════════
+HOME PAGE
+══════════════════════════ */
+
+.hero {
+background: linear-gradient(160deg, var(–green-d) 0%, var(–green) 60%, var(–green-d) 100%);
+padding: 80px 24px 64px;
+padding-top: calc(60px + 40px);
+}
+
+.hero-inner { max-width: 640px; }
+
+.hero h1 {
+font-size: clamp(38px, 6vw, 64px);
+color: #ffffff !important;
+font-weight: 600;
+margin: 16px 0 18px;
+line-height: 1.1;
+}
+.hero h1 em { color: #f0c84a !important; font-style: italic; }
+
+.hero-lead {
+font-size: 19px;
+font-weight: 300;
+line-height: 1.75;
+color: rgba(255,255,255,.88) !important;
+max-width: 520px;
+margin-bottom: 36px;
+}
+
+.hero-signup {
+background: rgba(255,255,255,.1);
+border: 1px solid rgba(255,255,255,.2);
+border-radius: 8px;
+padding: 28px 28px 24px;
+max-width: 440px;
+}
+.hero-signup h3 {
+font-family: var(–lora);
+font-size: 20px;
+color: #fff;
+margin-bottom: 6px;
+}
+.hero-signup p {
+font-size: 15px;
+font-weight: 300;
+color: rgba(255,255,255,.7) !important;
+margin-bottom: 20px;
+line-height: 1.6;
+}
+
+/* Tip strip */
+.tip {
+background: var(–warm);
+border-left: 4px solid var(–gold);
+padding: 20px 24px;
+}
+.tip-inner {
+max-width: 860px;
+margin: 0 auto;
+display: flex;
+gap: 16px;
+align-items: flex-start;
+flex-wrap: wrap;
+}
+.tip .tag { flex-shrink: 0; padding-top: 2px; }
+.tip-text {
+font-family: var(–lora);
+font-style: italic;
+font-size: 17px;
+color: var(–text);
+line-height: 1.65;
+flex: 1;
+min-width: 200px;
+}
+
+/* Books on home */
+.home-books { padding: 64px 24px; }
+.home-books-inner { max-width: 860px; margin: 0 auto; }
+.home-books h2 {
+font-size: clamp(26px, 4vw, 38px);
+color: var(–text);
+margin-bottom: 28px;
+}
+
+.brow {
+display: grid;
+grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+gap: 3px;
+}
+
+.bc {
+background: var(–warm);
+padding: 28px 24px;
+border-bottom: 3px solid transparent;
+transition: all .2s;
+cursor: pointer;
+}
+.bc:hover { border-bottom-color: var(–gold); background: #ede8d8; }
+.bc .tag { display: block; margin-bottom: 10px; font-size: 11px; }
+.bc h3 {
+font-family: var(–lora);
+font-size: 18px;
+font-weight: 600;
+color: var(–text);
+line-height: 1.3;
+margin-bottom: 10px;
+}
+.bc p {
+font-size: 15px;
+font-weight: 300;
+color: var(–muted);
+line-height: 1.65;
+margin-bottom: 20px;
+}
+.bc-btns { display: flex; gap: 8px; flex-wrap: wrap; }
+.bc-coming { opacity: .5; cursor: default; }
+.bc-coming:hover { border-bottom-color: transparent; background: var(–warm); }
+
+/* Journey */
+.journey {
+background: #fff;
+padding: 64px 24px;
+border-top: 1px solid var(–border);
+border-bottom: 1px solid var(–border);
+}
+.journey-inner { max-width: 620px; margin: 0 auto; }
+.journey h2 {
+font-size: clamp(24px, 4vw, 36px);
+color: var(–text);
+margin-bottom: 24px;
+}
+
+.jsteps { display: flex; flex-direction: column; gap: 3px; }
+.jstep { display: flex; background: var(–warm); border-radius: 0; overflow: hidden; }
+.jnum {
+width: 52px;
+flex-shrink: 0;
+background: var(–green);
+color: #f0c84a;
+font-family: var(–lora);
+font-size: 20px;
+font-weight: 600;
+display: flex;
+align-items: center;
+justify-content: center;
+}
+.jnum.dim {
+background: rgba(45,106,53,.2);
+color: rgba(200,160,48,.4);
+}
+.jbody { padding: 16px 20px; }
+.jbody strong {
+font-family: var(–lora);
+font-size: 16px;
+color: var(–text);
+display: block;
+margin-bottom: 4px;
+}
+.jbody span { font-size: 14px; color: var(–muted); line-height: 1.5; display: block; }
+.jpill {
+display: inline-block;
+font-size: 10px;
+font-weight: 600;
+letter-spacing: .1em;
+text-transform: uppercase;
+padding: 2px 8px;
+border-radius: 3px;
+margin-top: 8px;
+}
+.pill-live { background: rgba(200,160,48,.12); color: var(–gold); border: 1px solid rgba(200,160,48,.3); }
+.pill-soon { background: rgba(154,152,136,.1); color: #9a9888; border: 1px solid rgba(154,152,136,.2); }
+
+/* Coming */
+.coming {
+background: var(–warm);
+padding: 48px 24px;
+text-align: center;
+border-top: 1px solid var(–border);
+}
+.coming-inner { max-width: 580px; margin: 0 auto; }
+.coming h3 {
+font-size: clamp(20px, 3.5vw, 28px);
+color: var(–text);
+margin: 12px 0 12px;
+}
+.coming p { font-size: 16px; color: var(–muted); line-height: 1.7; margin-bottom: 24px; }
+.cpills { display: flex; gap: 8px; justify-content: center; flex-wrap: wrap; }
+.cpill {
+font-size: 11px;
+font-weight: 600;
+letter-spacing: .1em;
+text-transform: uppercase;
+color: var(–muted);
+border: 1.5px solid var(–border);
+padding: 6px 14px;
+border-radius: 20px;
+}
+
+/* ══════════════════════════
+BOOKS PAGE
+══════════════════════════ */
+.pg-hero {
+background: linear-gradient(160deg, var(–green-d) 0%, var(–green) 100%);
+padding: calc(60px + 36px) 24px 48px;
+}
+.pg-hero .tag { display: block; margin-bottom: 12px; }
+.pg-hero h1 {
+font-size: clamp(30px, 5vw, 48px);
+color: #fff !important;
+margin-bottom: 12px;
+}
+.pg-hero p {
+font-size: 17px;
+font-weight: 300;
+color: rgba(255,255,255,.82) !important;
+max-width: 520px;
+line-height: 1.7;
+}
+
+.books-body { padding: 56px 24px; }
+.books-body-inner { max-width: 860px; margin: 0 auto; }
+
+.bfull {
+background: var(–warm);
+border-radius: 4px;
+padding: 32px 28px;
+margin-bottom: 3px;
+}
+.bfull .tag { display: block; margin-bottom: 10px; font-size: 11px; }
+.bfull h3 {
+font-size: clamp(20px, 3vw, 26px);
+color: var(–text);
+margin-bottom: 10px;
+line-height: 1.25;
+}
+.bfull p {
+font-size: 16px;
+font-weight: 300;
+color: var(–muted);
+line-height: 1.75;
+margin-bottom: 22px;
+}
+.bfull-btns { display: flex; gap: 10px; flex-wrap: wrap; }
+.bfull-coming { opacity: .5; }
+
+/* ══════════════════════════
+GIFT PAGES
+══════════════════════════ */
+.gift-top {
+padding: calc(60px + 36px) 24px 56px;
+}
+.wkbk1-bg {
+background: linear-gradient(150deg, #1a4a1e 0%, #2a6a30 50%, #1a4a1e 100%);
+}
+.wkbk2-bg {
+background: linear-gradient(150deg, #1a3a28 0%, #265a38 50%, #1a3a28 100%);
+}
+
+.gift-top-inner { max-width: 600px; }
+.gift-top .tag { display: block; margin-bottom: 14px; font-size: 12px; }
+.gift-top h1 {
+font-size: clamp(36px, 7vw, 58px);
+color: #fff !important;
+margin-bottom: 16px;
+line-height: 1.1;
+}
+.gift-top p {
+font-size: 18px;
+font-weight: 300;
+color: rgba(255,255,255,.88) !important;
+line-height: 1.75;
+max-width: 500px;
+margin-bottom: 32px;
+}
+
+.gift-body { padding: 52px 24px; }
+.gift-body-inner { max-width: 680px; margin: 0 auto; }
+.gift-body h2 {
+font-size: clamp(22px, 3.5vw, 32px);
+color: var(–text);
+margin: 12px 0 24px;
+}
+
+.gitems { display: flex; flex-direction: column; gap: 3px; margin-bottom: 40px; }
+.gitem {
+display: flex;
+gap: 18px;
+padding: 22px 24px;
+background: var(–warm);
+align-items: flex-start;
+}
+.gitem-icon { font-size: 22px; flex-shrink: 0; width: 30px; text-align: center; }
+.gitem h4 {
+font-family: var(–lora);
+font-size: 17px;
+color: var(–text);
+margin-bottom: 6px;
+}
+.gitem p {
+font-size: 15px;
+font-weight: 300;
+color: var(–muted);
+line-height: 1.65;
+}
+
+.gift-form {
+background: var(–green);
+border-radius: 8px;
+padding: 36px 32px;
+}
+.gift-form h3 {
+font-family: var(–lora);
+font-size: 24px;
+color: #fff;
+margin-bottom: 8px;
+line-height: 1.2;
+}
+.gift-form > p {
+font-size: 16px;
+color: rgba(255,255,255,.7);
+margin-bottom: 24px;
+line-height: 1.6;
+}
+
+/* ══════════════════════════
+FOOTER
+══════════════════════════ */
+footer {
+background: var(–green-d);
+padding: 32px 24px 22px;
+border-top: 2px solid var(–gold);
+}
+.footer-inner {
+max-width: 860px;
+margin: 0 auto;
+display: flex;
+align-items: center;
+justify-content: space-between;
+flex-wrap: wrap;
+gap: 16px;
+margin-bottom: 18px;
+}
+.footer-logo { font-family: var(–lora); font-size: 18px; color: #fff; cursor: pointer; }
+.footer-logo span { color: #f0c84a; }
+.footer-nav { display: flex; gap: 4px; flex-wrap: wrap; }
+.footer-nav button {
+background: none; border: none;
+font-family: var(–jost); font-size: 12px; font-weight: 600;
+letter-spacing: .06em; text-transform: uppercase;
+color: rgba(255,255,255,.5); padding: 6px 10px; cursor: pointer; border-radius: 3px;
+}
+.footer-nav button:hover { color: #f0c84a; }
+.footer-copy {
+max-width: 860px; margin: 0 auto;
+font-size: 12px; color: rgba(255,255,255,.25);
+text-align: center; padding-top: 16px;
+border-top: 1px solid rgba(255,255,255,.08);
+line-height: 1.6;
+}
+
+/* ══════════════════════════
+RESPONSIVE
+══════════════════════════ */
+@media (max-width: 480px) {
+.nav-btns button { font-size: 10px; padding: 7px 7px; }
+.logo { font-size: 17px; }
+.btn { padding: 14px 22px; font-size: 13px; }
+.hero-signup { padding: 22px 20px; }
+.gift-form { padding: 28px 22px; }
+}
+</style>
+
+</head>
+<body>
+
+<!-- NAV -->
+
+<nav>
+  <div class="logo" onclick="go('home')">Known<span>Press</span></div>
+  <div class="nav-btns">
+    <button onclick="go('home')"  id="nb-home"  class="on">Home</button>
+    <button onclick="go('books')" id="nb-books">Books</button>
+    <button onclick="go('g1')"    id="nb-g1">Wkbk 1 Gift</button>
+    <button onclick="go('g2')"    id="nb-g2" class="cta">Wkbk 2 Gift</button>
+  </div>
+</nav>
+
+<!-- ══════════════════════════
+     HOME
+══════════════════════════ -->
+
+<div id="pg-home" class="pg on">
+
+  <section class="hero">
+    <div class="hero-inner">
+      <div class="tag">Finding Yourself Within · 5-Workbook Series</div>
+      <h1>You didn't lose yourself<br><em>all at once.</em></h1>
+      <p class="hero-lead">You gave yourself away one yes at a time.<br>The way back is one page at a time.</p>
+
+```
+  <div class="hero-signup">
+    <h3>Stay on the journey.</h3>
+    <p>Be first to know when new workbooks, tools, and resources are ready. No spam, ever.</p>
+    <form class="form-col" onsubmit="sub(event,'ok-h')">
+      <input type="text"  name="FNAME" placeholder="Your first name"    required class="inv">
+      <input type="email" name="EMAIL" placeholder="Your email address" required class="inv">
+      <button type="submit" class="btn btn-gold">Join the List →</button>
+      <span class="fine-inv">Unsubscribe any time. We respect your inbox.</span>
+    </form>
+    <div id="ok-h" class="ok">✦ Welcome. You're on the path.</div>
+  </div>
+</div>
+```
+
+  </section>
+
+  <div class="tip">
+    <div class="tip-inner">
+      <span class="tag">Today's Practice</span>
+      <span class="tip-text" id="tip-txt"></span>
+    </div>
+  </div>
+
+  <section class="home-books">
+    <div class="home-books-inner">
+      <div class="tag">The Books</div>
+      <div class="divider"></div>
+      <h2>Two workbooks available now.<br>More on the way.</h2>
+      <div class="brow">
+
+```
+    <div class="bc" onclick="go('books')">
+      <span class="tag">Core Book</span>
+      <h3>Losing Yourself to Others While Finding Yourself Within</h3>
+      <p>The book that started it all. The honest look at how we give ourselves away — and what the way back looks like.</p>
+      <div class="bc-btns">
+        <button class="btn btn-amazon" onclick="event.stopPropagation();window.open('https://www.amazon.com/Losing-Yourself-Others-Finding-Within-ebook/dp/B0GP19B9MZ','_blank')" style="font-size:12px;padding:12px 20px">Buy on Amazon →</button>
+      </div>
+    </div>
+
+    <div class="bc" onclick="go('books')">
+      <span class="tag">Workbook 1 · Awareness</span>
+      <h3>A Simple Start to Finding Yourself Within</h3>
+      <p>21 days. 21 scenarios. Learning to hear your own voice again. Your only job: notice.</p>
+      <div class="bc-btns">
+        <button class="btn btn-amazon" onclick="event.stopPropagation();window.open('https://www.amazon.com/Simple-Start-Finding-Yourself-Within-ebook/dp/B0GPPPZ311','_blank')" style="font-size:12px;padding:12px 20px">Buy on Amazon →</button>
+        <button class="btn btn-ghost" onclick="event.stopPropagation();go('g1')" style="font-size:12px;padding:12px 20px">Free Gift</button>
+      </div>
+    </div>
+
+    <div class="bc" onclick="go('books')">
+      <span class="tag">Workbook 2 · Action</span>
+      <h3>Finding Your Voice Within</h3>
+      <p>Learning to speak from your center — 21 real situations where you find the words that are truly yours.</p>
+      <div class="bc-btns">
+        <button class="btn btn-gold" onclick="event.stopPropagation();go('g2')" style="font-size:12px;padding:12px 20px">Claim Free Gift →</button>
+      </div>
+    </div>
+
+    <div class="bc bc-coming">
+      <span class="tag" style="color:#9a9888">Workbook 3 · Coming Soon</span>
+      <h3>Journey Back to Freedom</h3>
+      <p>Where the scripts become instinct. The situations get harder. So do you.</p>
+    </div>
+
+  </div>
+</div>
+```
+
+  </section>
+
+  <section class="journey">
+    <div class="journey-inner">
+      <div class="tag">The Full Journey</div>
+      <div class="divider"></div>
+      <h2>Five workbooks. One path back to yourself.</h2>
+      <div class="jsteps">
+        <div class="jstep">
+          <div class="jnum">1</div>
+          <div class="jbody">
+            <strong>A Simple Start to Finding Yourself Within</strong>
+            <span>Learning to hear your own voice again — 21 body-awareness scenarios.</span>
+            <span class="jpill pill-live">Available Now</span>
+          </div>
+        </div>
+        <div class="jstep">
+          <div class="jnum">2</div>
+          <div class="jbody">
+            <strong>Finding Your Voice Within</strong>
+            <span>The exact words for the moments you go silent or say yes when you mean no.</span>
+            <span class="jpill pill-live">Available Now</span>
+          </div>
+        </div>
+        <div class="jstep">
+          <div class="jnum dim">3</div>
+          <div class="jbody">
+            <strong>Journey Back to Freedom</strong>
+            <span>Where the scripts become instinct. The situations get harder. So do you.</span>
+            <span class="jpill pill-soon">Coming Soon</span>
+          </div>
+        </div>
+        <div class="jstep">
+          <div class="jnum dim">4</div>
+          <div class="jbody">
+            <strong>Releasing Tension &amp; Stored Stress</strong>
+            <span>Somatic practices to help your body let go of what it's been holding.</span>
+            <span class="jpill pill-soon">Coming Soon</span>
+          </div>
+        </div>
+        <div class="jstep">
+          <div class="jnum dim">5</div>
+          <div class="jbody">
+            <strong>Living More Fully as Yourself</strong>
+            <span>Scripts and guidance for daily life — at work, at home, in relationships.</span>
+            <span class="jpill pill-soon">Coming Soon</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="coming">
+    <div class="coming-inner">
+      <div class="tag">Coming to KnownPress</div>
+      <div class="divider" style="margin:12px auto 18px"></div>
+      <h3>There's more being built.</h3>
+      <p>Courses, quizzes, a podcast, vlogs, and a blog — all rooted in the same work as the books. Sign up above to be the first to know.</p>
+      <div class="cpills">
+        <span class="cpill">Courses</span>
+        <span class="cpill">Quizzes</span>
+        <span class="cpill">Podcast</span>
+        <span class="cpill">Vlogs</span>
+        <span class="cpill">Blog</span>
+      </div>
+    </div>
+  </section>
+
+</div><!-- end home -->
+
+<!-- ══════════════════════════
+     BOOKS
+══════════════════════════ -->
+
+<div id="pg-books" class="pg">
+
+  <section class="pg-hero">
+    <div class="wrap">
+      <div class="tag">All Books</div>
+      <h1>The Finding Yourself Within Series</h1>
+      <p>Start where you are. Every book stands on its own — and builds toward something bigger.</p>
+    </div>
+  </section>
+
+  <section class="books-body">
+    <div class="books-body-inner">
+
+```
+  <div class="tag">Core Book</div>
+  <div class="divider"></div>
+
+  <div class="bfull" style="margin-bottom:32px">
+    <span class="tag">The Foundation</span>
+    <h3>Losing Yourself to Others<br>While Finding Yourself Within</h3>
+    <p>Before the workbooks. The honest look at how we give ourselves away — one yes at a time — and what the way back actually looks like. A great place to start if you're new to the series.</p>
+    <p style="font-family:var(--lora);font-style:italic;font-size:16px;color:var(--text);border-left:3px solid var(--gold);padding-left:16px;margin-bottom:24px;line-height:1.7">"You didn't lose yourself all at once. You gave yourself away one yes at a time — to keep the peace, to be enough, to stay loved."</p>
+    <div class="bfull-btns">
+      <a href="https://www.amazon.com/Losing-Yourself-Others-Finding-Within-ebook/dp/B0GP19B9MZ" target="_blank" class="btn btn-amazon">Buy on Amazon →</a>
+    </div>
+  </div>
+
+  <div class="tag">The Workbook Series</div>
+  <div class="divider"></div>
+
+  <div class="bfull">
+    <span class="tag">Workbook 1 · Awareness · 21 Days</span>
+    <h3>A Simple Start to Finding Yourself Within</h3>
+    <p>21 scenarios. 21 body-awareness practices. Your only job is to notice — what your body feels, what it's been trying to tell you, and when it signals yes or no before your words do.</p>
+    <div class="bfull-btns">
+      <a href="https://www.amazon.com/Simple-Start-Finding-Yourself-Within-ebook/dp/B0GPPPZ311" target="_blank" class="btn btn-amazon">Buy on Amazon →</a>
+      <button class="btn btn-ghost" onclick="go('g1')">Free Graduation Gift</button>
+    </div>
+  </div>
+
+  <div class="bfull">
+    <span class="tag">Workbook 2 · Action · 21 Days</span>
+    <h3>Finding Your Voice Within</h3>
+    <p>Learning to speak from your center. 21 real situations where you find the words that are truly yours.</p>
+    <div class="bfull-btns">
+      <button class="btn btn-gold" onclick="go('g2')">Claim Free Gift →</button>
+      <p style="font-size:13px;color:var(--muted);margin-top:8px">Amazon link coming soon</p>
+    </div>
+  </div>
+
+  <div class="bfull bfull-coming">
+    <span class="tag" style="color:#9a9888">Workbook 3 · Freedom · Coming Soon</span>
+    <h3>Journey Back to Freedom</h3>
+    <p>Where the scripts become instinct. The situations get harder. So do you.</p>
+    <div class="bfull-btns">
+      <button class="btn btn-ghost" onclick="go('home')" style="font-size:12px;color:#9a9888;border-color:#ccc">Notify Me When Ready</button>
+    </div>
+  </div>
+
+  <div class="bfull bfull-coming">
+    <span class="tag" style="color:#9a9888">Workbooks 4 &amp; 5 · In Development</span>
+    <h3>Releasing &amp; Living More Fully</h3>
+    <p>Somatic release, tension work, and navigating real life as the fullest version of yourself.</p>
+  </div>
+
+</div>
+```
+
+  </section>
+
+</div><!-- end books -->
+
+<!-- ══════════════════════════
+     WORKBOOK 1 GIFT
+══════════════════════════ -->
+
+<div id="pg-g1" class="pg">
+
+  <section class="gift-top wkbk1-bg">
+    <div class="gift-top-inner">
+      <span class="tag">Workbook 1 · Complete</span>
+      <h1>You came back<br>to yourself.</h1>
+      <p>21 days of noticing. That is not a small thing. Most people never slow down enough to hear what their body has been trying to say. You did. Your free gift is below.</p>
+      <button class="btn btn-gold" onclick="document.getElementById('gf1').scrollIntoView({behavior:'smooth'})">Get My Free Gift →</button>
+    </div>
+  </section>
+
+  <section class="gift-body">
+    <div class="gift-body-inner">
+      <div class="tag">What's in Your Gift</div>
+      <div class="divider"></div>
+      <div class="gitems">
+        <div class="gitem">
+          <div class="gitem-icon">🗺️</div>
+          <div>
+            <h4>Your Body-Signal Map — Poster Edition</h4>
+            <p>All 8 body zones beautifully designed to print and keep. Each entry references a specific day from your practice — it reads differently now than it would have on Day 1.</p>
+          </div>
+        </div>
+        <div class="gitem">
+          <div class="gitem-icon">🧭</div>
+          <div>
+            <h4>Workbook 1 Self-Assessment</h4>
+            <p>Seven questions to mark exactly where you are after 21 days. A personal baseline for everything that comes next.</p>
+          </div>
+        </div>
+        <div class="gitem">
+          <div class="gitem-icon">🔑</div>
+          <div>
+            <h4>A Door to Workbook 2</h4>
+            <p>A specific sentence from your workbook that points toward the next step. You may have read past it. Go back to it now.</p>
+          </div>
+        </div>
+      </div>
+
+```
+  <div class="gift-form" id="gf1">
+    <h3>You already know the way.<br>You've been practicing.</h3>
+    <p>Enter your email and your gift downloads right away.</p>
+    <form class="form-col" onsubmit="doGrad(event)">
+      <input type="text"  name="FNAME" placeholder="Your first name"    required class="inv">
+      <input type="email" name="EMAIL" placeholder="Your email address" required class="inv">
+      <button type="submit" class="btn btn-gold">Send My Gift Now →</button>
+      <span class="fine-inv">You'll hear first when Workbook 2 is live. Unsubscribe any time.</span>
+    </form>
+    <div id="ok-g1" class="ok">✦ Your gift is on its way. Check your inbox.</div>
+  </div>
+</div>
+```
+
+  </section>
+
+</div><!-- end g1 -->
+
+<!-- ══════════════════════════
+     WORKBOOK 2 GIFT
+══════════════════════════ -->
+
+<div id="pg-g2" class="pg">
+
+  <section class="gift-top wkbk2-bg">
+    <div class="gift-top-inner">
+      <span class="tag">Workbook 2 · Complete</span>
+      <h1>You stayed<br>with it.</h1>
+      <p>21 days. 21 nos. You showed up even when it was uncomfortable. That is real work and it deserves to be honored. Your free gift is below.</p>
+      <button class="btn btn-gold" onclick="document.getElementById('gf2').scrollIntoView({behavior:'smooth'})">Get My Free Gift →</button>
+    </div>
+  </section>
+
+  <section class="gift-body">
+    <div class="gift-body-inner">
+      <div class="tag">What's in Your Gift</div>
+      <div class="divider"></div>
+      <div class="gitems">
+        <div class="gitem">
+          <div class="gitem-icon">📋</div>
+          <div>
+            <h4>The Scripts You Built — Reference Card</h4>
+            <p>All 21 scripts organized by week. Each entry references the silence after that specific day — it reads differently now than it would have on Day 1.</p>
+          </div>
+        </div>
+        <div class="gitem">
+          <div class="gitem-icon">🛡</div>
+          <div>
+            <h4>Emergency Anchors</h4>
+            <p>Three scripts that work in any situation, no context needed. Plus the breath ritual by week — because you earned the Week 3 version.</p>
+          </div>
+        </div>
+        <div class="gitem">
+          <div class="gitem-icon">🔑</div>
+          <div>
+            <h4>The Door to Workbook 3</h4>
+            <p>A reference to a specific page in your workbook — the Integration Space, the three unsolved situations. That is where Workbook 3 begins. Go fill it in first.</p>
+          </div>
+        </div>
+      </div>
+
+```
+  <div class="gift-form" id="gf2">
+    <h3>21 nos.<br>Center claimed.</h3>
+    <p>Enter your email and your gift downloads right away.</p>
+    <form class="form-col" onsubmit="doGift(event)">
+      <input type="text"  name="FNAME" placeholder="Your first name"    required class="inv">
+      <input type="email" name="EMAIL" placeholder="Your email address" required class="inv">
+      <button type="submit" class="btn btn-gold">Send My Gift Now →</button>
+      <span class="fine-inv">You'll hear first when Workbook 3 is ready. Unsubscribe any time.</span>
+    </form>
+    <div id="ok-g2" class="ok">✦ Your gift is on its way. Check your inbox.</div>
+  </div>
+</div>
+```
+
+  </section>
+
+</div><!-- end g2 -->
+
+<!-- FOOTER -->
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-logo" onclick="go('home')">Known<span>Press</span></div>
+    <div class="footer-nav">
+      <button onclick="go('home')">Home</button>
+      <button onclick="go('books')">Books</button>
+      <button onclick="go('g1')">Wkbk 1 Gift</button>
+      <button onclick="go('g2')">Wkbk 2 Gift</button>
+    </div>
+  </div>
+  <div class="footer-copy">
+    © 2025 KnownPress · R.D. Tenil · Finding Yourself Within Series<br>
+    Amazon links are affiliate links · KnownPress.com
+  </div>
+</footer>
+
+<script>
+const ML   = 'https://assets.mailerlite.com/jsonp/2114005/forms/179425448254506885/subscribe';
+const PDF1 = 'https://assets.zyrosite.com/P7IoOiTp6OMz7nAe/knownpress-wkbk1-gift-final-c2yWv8aPuyDC6yMt.pdf';
+const PDF2 = 'https://assets.zyrosite.com/P7IoOiTp6OMz7nAe/knownpress-gift-final-hiPgL5sunp35OuwU.pdf';
+
+const TIPS = [
+  "Before you respond to the next request, take one breath. Notice if your body is bracing or at ease. That's your answer.",
+  "Today: notice when your shoulders rise. That is the moment before the automatic yes.",
+  "Your gut dropped before your mind caught up. Learn to trust the drop.",
+  "The pause between their request and your answer is not awkward. It is yours.",
+  "Try saying 'let me think about that' once today — even when you already know.",
+  "Notice the difference between a yes that opens something and a yes that closes you down.",
+  "Tightness in the chest is a sentence your body is trying to finish. Give it time.",
+  "You don't have to explain a no. The explanation is not the boundary.",
+  "Before you say yes, ask yourself — is this mine to carry?",
+  "The body braces before the voice gives in. Learn to hear the brace.",
+  "Ease in the shoulders means the body agrees. Tension means it doesn't. Both are information.",
+  "One small no today. It doesn't have to be big to be real.",
+  "Notice what your hands do when someone asks something of you. Both reaching and pulling back are answers.",
+  "The slow exhale is the body's simplest signal of safety. Use it before you speak.",
+  "You have been practicing. Even when it doesn't feel like it.",
+];
+document.getElementById('tip-txt').textContent = TIPS[new Date().getDate() % TIPS.length];
+
+function go(id) {
+  document.querySelectorAll('.pg').forEach(p => p.classList.remove('on'));
+  document.querySelectorAll('.nav-btns button').forEach(b => b.classList.remove('on'));
+  document.getElementById('pg-' + id).classList.add('on');
+  const nb = document.getElementById('nb-' + id);
+  if (nb) nb.classList.add('on');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+  window.location.hash = id;
+}
+
+(function () {
+  const h = window.location.hash.replace('#', '');
+  if (['home','books','g1','g2'].includes(h)) go(h);
+})();
+
+function sub(e, okId) {
+  e.preventDefault();
+  const f = e.target, b = f.querySelector('button');
+  b.textContent = 'Sending…'; b.disabled = true;
+  fetch(ML, { method: 'POST', body: new FormData(f), mode: 'no-cors' })
+    .finally(() => { f.style.display = 'none'; document.getElementById(okId).style.display = 'block'; });
+}
+
+function doGrad(e) {
+  e.preventDefault();
+  const f = e.target, b = f.querySelector('button');
+  b.textContent = 'Sending…'; b.disabled = true;
+  fetch(ML, { method: 'POST', body: new FormData(f), mode: 'no-cors' })
+    .finally(() => {
+      f.style.display = 'none';
+      document.getElementById('ok-g1').style.display = 'block';
+      setTimeout(() => window.location.href = PDF1, 1500);
+    });
+}
+
+function doGift(e) {
+  e.preventDefault();
+  const f = e.target, b = f.querySelector('button');
+  b.textContent = 'Sending…'; b.disabled = true;
+  fetch(ML, { method: 'POST', body: new FormData(f), mode: 'no-cors' })
+    .finally(() => {
+      f.style.display = 'none';
+      document.getElementById('ok-g2').style.display = 'block';
+      setTimeout(() => window.location.href = PDF2, 1500);
+    });
+}
+</script>
+
+</body>
+</html>
